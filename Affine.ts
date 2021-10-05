@@ -40,13 +40,13 @@ class Affine implements Encrypt {
 
   public decrypt(): this {
     const phrase = this.encrypted ?? this.phrase;
-    const x = this.inverseModulo();
+    const modulo = this.inverseModulo();
 
     this.decrypted = phrase
       .toUpperCase()
       .split('')
       .map(letter => letter === ' ' ?
-        ' ' : this.alphabet.charAt((x * (this.alphabet.indexOf(letter) - this.keyB + this.alphabet.length)) % this.alphabet.length))
+        ' ' : this.alphabet.charAt((modulo * (this.alphabet.indexOf(letter) - this.keyB + this.alphabet.length)) % this.alphabet.length))
       .join('');
 
     return this;
