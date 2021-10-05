@@ -1,4 +1,6 @@
-class Affine {
+import { Encrypt } from './Encrypt';
+
+class Affine implements Encrypt {
   private readonly keyA: number;
   private readonly keyB: number;
   private readonly phrase: string;
@@ -23,7 +25,7 @@ class Affine {
     return -1;
   }
 
-  public crypt(): this {
+  public encrypt(): this {
     const phrase = this.decrypted ?? this.phrase;
 
     this.encrypted = phrase
@@ -51,4 +53,4 @@ class Affine {
   }
 }
 
-console.log(new Affine('Tabanschi Alexandru', 7, 5).crypt().decrypt());
+console.log(new Affine('Tabanschi Alexandru', 7, 5).encrypt().decrypt());

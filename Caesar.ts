@@ -1,4 +1,6 @@
-class Caesar {
+import { Encrypt } from './Encrypt';
+
+class Caesar implements Encrypt {
   private readonly key: number;
   private readonly phrase: string;
   private readonly alphabet: string;
@@ -11,7 +13,7 @@ class Caesar {
     this.alphabet = alphabet;
   }
 
-  public crypt(): this {
+  public encrypt(): this {
     const phrase = this.decrypted ?? this.phrase;
 
     this.encrypted = phrase
@@ -38,4 +40,4 @@ class Caesar {
   }
 }
 
-console.log(new Caesar('Tabanschi Alexandru', 5).crypt().decrypt());
+console.log(new Caesar('Tabanschi Alexandru', 5).encrypt().decrypt());
