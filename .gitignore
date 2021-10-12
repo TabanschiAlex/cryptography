@@ -1,0 +1,10 @@
+# Project exclude paths
+.idea
+node_modules
+
+/Affine.js
+/Caesar.js
+/Polybius.js
+/lib/Cipher.js
+/Vigenere.js
+/RSA.js

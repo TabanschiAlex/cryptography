@@ -1,6 +1,7 @@
-import { Encrypt } from './Encrypt';
+import { Cipher } from '../lib/Cipher';
+import { ConsoleInput } from '../lib/ConsoleInput';
 
-class Affine implements Encrypt {
+class Affine implements Cipher {
   private readonly keyA: number;
   private readonly keyB: number;
   private readonly phrase: string;
@@ -8,11 +9,11 @@ class Affine implements Encrypt {
   private encrypted: string;
   private decrypted: string;
 
-  constructor(phrase: string, keyA: number, keyB: number, alphabet: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') {
+  constructor(phrase: string, keyA: number, keyB: number, alphabet?: string) {
     this.phrase = phrase;
     this.keyA = keyA;
     this.keyB = keyB;
-    this.alphabet = alphabet;
+    this.alphabet = alphabet ?? 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   }
 
   private inverseModulo(divider = 0): number {
@@ -51,6 +52,16 @@ class Affine implements Encrypt {
 
     return this;
   }
+
+  public static run(): Affine {
+    const phrase: string = ConsoleInput.readLine("Introduce phrase: ");
+    const keyA: number = ConsoleInput.readLineNumber("Introduce key A: ");
+    const keyB: number = ConsoleInput.readLineNumber("Introduce key B: ");
+    const alphabet: string = ConsoleInput.readLine("Introduce alphabet(optional): ", true);
+
+    return new Affine(phrase, keyA, keyB, alphabet).encrypt().decrypt();
+  }
 }
 
-console.log(new Affine('Tabanschi Alexandru', 7, 5).encrypt().decrypt());
+/*console.log(new Affine('Tabanschi Alexandru', 7, 5).encrypt().decrypt());*/
+console.log(Affine.run());

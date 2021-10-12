@@ -1,6 +1,7 @@
-import { Encrypt } from './Encrypt';
+import { Cipher } from '../lib/Cipher';
+import { ConsoleInput } from '../lib/ConsoleInput';
 
-class Polybius implements Encrypt {
+class Polybius implements Cipher {
   private readonly phrase: string;
   private readonly alphabet: Record<number, string>;
   private encrypted: string;
@@ -24,7 +25,7 @@ class Polybius implements Encrypt {
       .filter(key => obj[key].includes(value))[0];
   }
 
-  private getPairs(str: string): string[] {
+  private static getPairs(str: string): string[] {
     const result: string[] = [];
 
     while (str.length) {
@@ -50,12 +51,18 @@ class Polybius implements Encrypt {
   public decrypt(): this {
     const phrase = this.encrypted ?? this.phrase;
 
-    this.decrypted = this.getPairs(phrase.toUpperCase())
+    this.decrypted = Polybius.getPairs(phrase.toUpperCase())
       .map(pair => this.alphabet[pair] ?? ' ')
       .join('');
 
     return this;
   }
+
+  public static run(): Polybius {
+    const phrase: string = ConsoleInput.readLine("Introduce phrase: ");
+    return new Polybius(phrase).encrypt().decrypt();
+  }
 }
 
-console.log(new Polybius('A sosit timpul').encrypt().decrypt());
+/*console.log(new Polybius('A sosit timpul').encrypt().decrypt());*/
+console.log(Polybius.run());

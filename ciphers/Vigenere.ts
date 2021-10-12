@@ -1,6 +1,7 @@
-import { Encrypt } from './Encrypt';
+import { Cipher } from '../lib/Cipher';
+import { ConsoleInput } from '../lib/ConsoleInput';
 
-class Vigenere implements Encrypt {
+class Vigenere implements Cipher {
   private readonly phrase: string;
   private readonly alphabet: string;
   private readonly keys: number[];
@@ -29,6 +30,15 @@ class Vigenere implements Encrypt {
   decrypt(): this {
     return this;
   }
+
+  public static run(): Vigenere {
+    const phrase: string = ConsoleInput.readLine("Introduce phrase: ");
+    const key: number[] = ConsoleInput.readLine("Introduce key: ").split(',').map(el => +el);
+    const alphabet: string = ConsoleInput.readLine("Introduce alphabet(optional): ", true);
+
+    return new Vigenere(phrase, key, alphabet).encrypt().decrypt();
+  }
 }
 
-console.log(new Vigenere('Buna ziua, IS').encrypt());
+/*console.log(new Vigenere('Buna ziua, IS').encrypt());*/
+console.log(Vigenere.run());

@@ -1,4 +1,4 @@
-export interface Encrypt {
+export interface Cipher {
   encrypt(): this;
   decrypt(): this;
 }
