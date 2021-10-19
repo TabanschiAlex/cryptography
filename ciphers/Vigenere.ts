@@ -21,13 +21,22 @@ class Vigenere implements Cipher {
       .toUpperCase()
       .split('')
       .map(letter => letter === ' ' ? ' ' :
-        this.alphabet.charAt((this.alphabet.indexOf(letter) + (this.keys[count++] ?? this.keys[count = 0])) % 26))
+        this.alphabet.charAt((this.alphabet.indexOf(letter) + (this.keys[count++] ?? this.keys[count = 0])) % this.alphabet.length))
       .join('');
 
     return this;
   }
 
-  decrypt(): this {
+  decrypt(count: number = 0): this {
+    const phrase = this.encrypted ?? this.phrase;
+
+    this.decrypted = phrase
+      .toUpperCase()
+      .split('')
+      .map(letter => letter === ' ' ? ' ' :
+        this.alphabet.charAt((this.alphabet.indexOf(letter) - (this.keys[count++] ?? this.keys[count = 0]) + this.alphabet.length) % this.alphabet.length))
+      .join('');
+
     return this;
   }
 

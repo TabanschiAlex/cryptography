@@ -11,7 +11,7 @@ export class ConsoleInput {
     return answer.length ? answer : undefined;
   }
 
-  public static readLineNumber(promptText, nullable = false): number | undefined {
+  public static readLineNumber(promptText, nullable = false): number {
     try {
       return +this.readLine(promptText, nullable);
     } catch (e) {
